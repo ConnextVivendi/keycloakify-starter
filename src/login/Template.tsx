@@ -33,6 +33,30 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
     const { realm, auth, url, message, isAppInitiatedAction } = kcContext;
 
     useEffect(() => {
+        const icons = [
+            { rel: "apple-touch-icon", sizes: "57x57", href: "logo-quadrate-57.png" },
+            { rel: "apple-touch-icon", sizes: "72x72", href: "logo-quadrate-72.png" },
+            { rel: "apple-touch-icon", sizes: "76x76", href: "logo-quadrate-76.png" },
+            { rel: "apple-touch-icon", sizes: "114x114", href: "logo-quadrate-114.png" },
+            { rel: "apple-touch-icon", sizes: "120x120", href: "logo-quadrate-120.png" },
+            { rel: "apple-touch-icon", sizes: "144x144", href: "logo-quadrate-144.png" },
+            { rel: "apple-touch-icon", sizes: "152x152", href: "logo-quadrate-152.png" }
+        ];
+
+        const base = `${url.resourcesPath}/shared`;
+
+        const created: HTMLLinkElement[] = icons.map(icon => {
+            const link = document.createElement("link");
+            link.rel = icon.rel;
+            if (icon.sizes) link.setAttribute("sizes", icon.sizes);
+            link.href = `${base}/${icon.href}`;
+            document.head.appendChild(link);
+            return link;
+        });
+
+        return () => created.forEach(l => l.remove());
+    }, [url.resourcesPath]);
+    useEffect(() => {
         document.title = documentTitle ?? msgStr("loginTitle", realm.displayName || realm.name);
     }, []);
 

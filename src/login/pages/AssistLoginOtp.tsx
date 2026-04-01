@@ -49,7 +49,7 @@ export default function AssistLoginOtp(props: PageProps<Extract<KcContext, { pag
                             name="otp"
                             type="text"
                             inputMode="text"
-                            autoComplete="one-time-code"
+                            autoComplete="off"
                             autoFocus
                             className={kcClsx("kcInputClass")}
                             aria-invalid={messagesPerField.existsError("otp")}
