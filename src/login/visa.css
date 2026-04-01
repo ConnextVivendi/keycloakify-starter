@@ -28,9 +28,21 @@
 
 body.kcBodyClass,
 .login-pf body {
-    background: radial-gradient(#33576e 70%, #33576e 0%, rgb(9, 46, 102) 170%) !important;
+    background: radial-gradient(#33576e 70%, #33576e 0%, rgb(9, 46, 102) 170%);
     background-size: cover;
     height: 100%;
+}
+/* Mobile: override background to white for better feeling on small screens */
+@media (max-width: 767px) {
+    .login-pf body {
+        background: white;
+    }
+}
+
+/* Header wrapper: center the logo and add top padding for language selector */
+#kc-header-wrapper {
+    padding: 40px 0 0 0;
+    text-align: center;
 }
 
 /* Primary buttons */
