@@ -3,9 +3,11 @@ on:
     push:
         branches:
             - main
+            - visa
     pull_request:
         branches:
             - main
+            - visa
 
 jobs:
     test:
