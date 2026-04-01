@@ -1,21 +1,60 @@
-# Abhängigkeiten
+# Abhängigkeiten (Windows)
 - `winget install --id chocolatey.chocolatey --source winget`
 - `choco upgrade chocolatey`
 - `choco install openjdk maven -y`
 - `choco install nodejs -y`
 - `npm install -g pnpm`
 
-Bei Bedarf: `pnpm store prune`
+Optional bei Cache-Problemen:
+- `pnpm store prune`
 
-# Keycloackify
+# Keycloakify Workflow
 - `pnpm install`
 - `npx keycloakify add-story`
 - `pnpm run storybook`
+- `npm run build`
 
-## CSS Anpassungen
-- `src/login/visa.css`
-- `import "./visa.css";` in `src/login/KcPage.tsx`
-- Keycloak-Standardklassen (wie .kcFormCardClass) oder direkt Tailwind-Klassen überschreiben
+## CSS-Anpassungen
+- Datei: `src/login/visa.css`
+- Einbindung: `import "./visa.css";` in `src/login/KcPage.tsx`
+- Styling über Keycloak-Klassen (`kc*Class`) und projektspezifische Klassen
 
-## Template Anpassungen
-- `npx keycloakify eject-page` -> `Template.tsx`
+## Template-Anpassungen
+- `npx keycloakify eject-page`
+- Ergebnisdatei: `src/login/Template.tsx`
+
+# Erweiterung: assist-login-otp.ftl
+
+Dieses Projekt enthält eine Keycloakify-Erweiterung für eine nicht im Keycloak-Standard enthaltene Seite: `assist-login-otp.ftl`.
+
+## Ziel
+- Rendering und Styling der Custom-FTL-Seite in React/Keycloakify
+- Typsichere Abbildung der benötigten `kcContext`-Daten
+- Storybook-Vorschau für lokale Validierung
+
+## Relevante Dateien
+- `src/login/pages/AssistLoginOtp.tsx`
+	- React-Implementierung der Seite (Header, OTP-Formular, Fehlermeldung, Submit)
+- `src/login/KcPage.tsx`
+	- Routing-Erweiterung: `case "assist-login-otp.ftl"`
+- `src/login/KcContext.ts`
+	- Typ-Erweiterung für `assist-login-otp.ftl` (benötigte Context-Felder)
+- `src/login/KcPageStory.tsx`
+	- Mock-Daten in `kcContextExtensionPerPage` für Storybook
+- `src/login/pages/AssistLoginOtp.stories.tsx`
+	- Storybook-Story der Seite
+- `src/login/i18n.ts`
+	- Übersetzungs-Keys für die OTP-spezifischen Texte/Fehler
+
+## i18n-Keys für assist-login-otp
+- `assistOtpServiceTimeout`
+- `assistOtpServiceError`
+- `assistOtpInvalidFormat`
+- `assistOtpInvalidCode`
+- `assistOtpTitle`
+- `assistOtpLabel`
+- `assistOtpInstruction`
+
+## Validierung
+- Storybook prüfen: `pnpm run storybook`
+- Build prüfen: `npm run build`
