@@ -1,0 +1,79 @@
+/* ===== Connext Vivendi Keycloak Theme – Global Colors & Background ===== */
+
+:root {
+    /* Primary palette */
+    --pf-global--primary-color--100: #33576e;
+    --pf-global--primary-color--200: #2a4a5e;
+    --pf-global--primary-color--dark-100: rgb(9, 46, 102);
+
+    /* Link colors */
+    --pf-global--link--Color: #33576e;
+    --pf-global--link--Color--hover: #2a4a5e;
+    --pf-global--link--Color--dark-100: #33576e;
+    --pf-global--link--Color--dark-100--hover: #2a4a5e;
+
+    /* Danger / error */
+    --pf-global--danger-color--100: #dc3545;
+
+    /* Font family */
+    --pf-global--FontFamily--sans-serif: 'Roboto', system-ui, -apple-system, 'Segoe UI',
+        'Helvetica Neue', 'Arial', 'Noto Sans', 'Liberation Sans', sans-serif,
+        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+/* Background: radial gradient matching legacy .primary-radial-gradient */
+.login-pf {
+    background: none;
+}
+
+body.kcBodyClass,
+.login-pf body {
+    background: radial-gradient(#33576e 70%, #33576e 0%, rgb(9, 46, 102) 170%) !important;
+    background-size: cover;
+    height: 100%;
+}
+
+/* Primary buttons */
+.pf-c-button.pf-m-primary,
+button.pf-c-button.pf-m-primary {
+    --pf-c-button--m-primary--BackgroundColor: #33576e;
+    --pf-c-button--m-primary--hover--BackgroundColor: #2a4a5e;
+    --pf-c-button--m-primary--focus--BackgroundColor: #2a4a5e;
+    --pf-c-button--m-primary--active--BackgroundColor: #243f52;
+    background-color: #33576e;
+    border-color: #33576e;
+}
+
+.pf-c-button.pf-m-primary:hover {
+    background-color: #2a4a5e;
+    border-color: #2a4a5e;
+}
+
+/* Links */
+a {
+    color: #33576e;
+}
+
+a:hover {
+    color: #2a4a5e;
+}
+
+.login-pf a:hover {
+    color: #2a4a5e;
+}
+
+/* Form focus ring */
+.pf-c-form-control:focus {
+    --pf-c-form-control--focus--BorderBottomColor: #33576e;
+}
+
+/* Alert / error inline colors */
+.pf-c-alert.pf-m-danger {
+    --pf-c-alert--m-danger--icon--Color: #dc3545;
+}
+
+/* Checkbox / switch accent */
+input[type="checkbox"],
+input[type="radio"] {
+    accent-color: #33576e;
+}
