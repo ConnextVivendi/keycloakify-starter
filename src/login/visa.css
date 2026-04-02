@@ -21,22 +21,57 @@
         'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
-/* Background: radial gradient matching legacy .primary-radial-gradient */
-.login-pf {
-    background: none;
+/* Footer Layout */
+.login-pf-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
+.kc-footer {
+    margin-top: auto;
+    padding: 16px;
+    text-align: center;
+}
+
+.kc-footer nav a {
+    margin: 0 12px;
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: none;
+}
+
+.kc-footer nav a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+/* Background: radial gradient */
 body.kcBodyClass,
-.login-pf body {
+.login-pf body {    
+    background: none;
+}
+.login-pf {
     background: radial-gradient(#33576e 70%, #33576e 0%, rgb(9, 46, 102) 170%);
-    background-size: cover;
-    height: 100%;
+    background-attachment: fixed;
+    min-height: 100vh;
 }
 /* Mobile: override background to white for better feeling on small screens */
 @media (max-width: 767px) {
-    .login-pf body {
+    .login-pf {
         background: white;
+    }    
+    .kc-footer nav a {
+        color: rgba(51, 87, 110, 0.75);
     }
+
+    .kc-footer nav a:hover {
+        color: #33576e;
+    }
+}
+
+/* Take full width of the container for the card. This fixes the changed behavior of display: flex on the card in the latest Keycloak version, which caused the card to shrink to fit its content instead of taking the full width. */
+.card-pf {
+    width: 100%;
 }
 
 /* Header wrapper: center the logo and add top padding for language selector */

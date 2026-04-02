@@ -13,7 +13,9 @@ const { useI18n, ofTypeI18n } = i18nBuilder
 			assistOtpInvalidCode: "The provided OTP is invalid.",
 			assistOtpTitle: "One-time password verification",
 			assistOtpLabel: "One-time password",
-			assistOtpInstruction: "Enter your one-time password from the external authentication app."
+			assistOtpInstruction: "Enter your one-time password from the external authentication app.",
+			footer_imprint: "Legal Notice",
+			footer_privacy: "Privacy Policy"
 		},
 		de: {
 			assistOtpServiceTimeout: "Der OTP-Dienst hat nicht rechtzeitig geantwortet. Bitte versuchen Sie es erneut.",
@@ -22,7 +24,9 @@ const { useI18n, ofTypeI18n } = i18nBuilder
 			assistOtpInvalidCode: "Das eingegebene OTP ist ungültig.",
 			assistOtpTitle: "Einmalpasswort-Verifizierung",
 			assistOtpLabel: "Einmalpasswort",
-			assistOtpInstruction: "Geben Sie Ihr Einmalpasswort aus der externen Authentifizierungs-App ein."
+			assistOtpInstruction: "Geben Sie Ihr Einmalpasswort aus der externen Authentifizierungs-App ein.",
+			footer_imprint: "Impressum",
+			footer_privacy: "Datenschutz"
 		}
 	})
 	.build();

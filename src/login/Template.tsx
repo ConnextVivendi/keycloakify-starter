@@ -8,6 +8,7 @@ import { useInitialize } from "keycloakify/login/Template.useInitialize";
 import type { I18n } from "./i18n";
 import type { KcContext } from "./KcContext";
 import logoSvgUrl from "../assets/logo_cx_vivendi_rgb.svg";
+import { Footer } from "./components/Footer";
 
 export default function Template(props: TemplateProps<KcContext, I18n>) {
     const {
@@ -207,6 +208,7 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                     </div>
                 </div>
             </div>
+            <Footer i18n={i18n} />
         </div>
     );
 }

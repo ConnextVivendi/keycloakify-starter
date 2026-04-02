@@ -3,16 +3,16 @@
 - `choco upgrade chocolatey`
 - `choco install openjdk maven -y`
 - `choco install nodejs -y`
-- `npm install -g pnpm`
+- `npm install -g yarn`
 
 Optional bei Cache-Problemen:
-- `pnpm store prune`
+- `yarn cache clean`
 
 # Keycloakify Workflow
-- `pnpm install`
+- `yarn install`
 - `npx keycloakify add-story`
-- `pnpm run storybook`
-- `npm run build`
+- `yarn storybook`
+- `npm run build-keycloak-theme`
 
 ## CSS-Anpassungen
 - Datei: `src/login/visa.css`
@@ -56,5 +56,13 @@ Dieses Projekt enthält eine Keycloakify-Erweiterung für eine nicht im Keycloak
 - `assistOtpInstruction`
 
 ## Validierung
-- Storybook prüfen: `pnpm run storybook`
-- Build prüfen: `npm run build`
+- Storybook prüfen: `yarn storybook`
+- Build prüfen: `yarn build`
+
+## Footer (global, i18n-basiert)
+- Komponente: `src/login/components/Footer.tsx`
+- Einbindung: `<Footer i18n={i18n} />` am Ende des Root-`<div>` in `Template.tsx`
+- Links ausschließlich in `FOOTER_LINKS`-Array konfigurieren
+- Neuen Link hinzufügen: Eintrag in `FOOTER_LINKS` + i18n-Key in `i18n.ts`
+- i18n-Keys: `footer_imprint`, `footer_privacy`
+- Styling: `.kc-footer` in `visa.css`
