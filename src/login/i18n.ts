@@ -15,7 +15,12 @@ const { useI18n, ofTypeI18n } = i18nBuilder
 			assistOtpLabel: "One-time password",
 			assistOtpInstruction: "Enter your one-time password from the external authentication app.",
 			footer_imprint: "Legal Notice",
-			footer_privacy: "Privacy Policy"
+			footer_privacy: "Privacy Policy",
+            "profile.attributes.salutation": "Salutation",
+			"profile.attributes.salutation.options.salutation_mr": "Mr.",
+            "profile.attributes.salutation.options.salutation_mrs": "Ms.",
+            "profile.attributes.salutation.options.salutation_diverse": "Diverse",
+			"profile.attributes.company": "Company",
 		},
 		de: {
 			assistOtpServiceTimeout: "Der OTP-Dienst hat nicht rechtzeitig geantwortet. Bitte versuchen Sie es erneut.",
@@ -26,7 +31,12 @@ const { useI18n, ofTypeI18n } = i18nBuilder
 			assistOtpLabel: "Einmalpasswort",
 			assistOtpInstruction: "Geben Sie Ihr Einmalpasswort aus der externen Authentifizierungs-App ein.",
 			footer_imprint: "Impressum",
-			footer_privacy: "Datenschutz"
+			footer_privacy: "Datenschutz",
+            "profile.attributes.salutation": "Anrede",
+			"profile.attributes.salutation.options.salutation_mr": "Herr",
+            "profile.attributes.salutation.options.salutation_mrs": "Frau",
+            "profile.attributes.salutation.options.salutation_diverse": "Divers",
+			"profile.attributes.company": "Firma",
 		}
 	})
 	.build();
