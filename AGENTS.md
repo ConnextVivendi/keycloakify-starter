@@ -1,128 +1,205 @@
----
-applyTo: "**"
----
+# Universal Agent Configuration (AGENTS.md)
 
-# Keycloakify Login-Theme – Agent Instructions
+[global_instructions]
 
-Dieses Projekt ist ein **Keycloakify**-basiertes Keycloak-Login-Theme (React + TypeScript + Vite).
-Halte dich strikt an die folgenden Konventionen.
+- Diese Datei definiert:
+  - Rollenverhalten
+  - Entscheidungslogik
+  - Workflow
 
----
+- Projektspezifische Regeln stehen ausschließlich in: CLAUDE.md
 
-## Paketmanager
-
-Dieses Projekt verwendet **yarn**. Ausschließlich:
-
-```bash
-yarn install         # Abhängigkeiten installieren
-npm run build-keycloak-theme           # Theme-JAR bauen → dist_keycloak/
-yarn storybook       # Lokale Vorschau starten
-yarn cache clean     # Cache leeren
-npx keycloakify ...  # Keycloakify-CLI (bleibt npx)
-```
-
-Niemals `npm install`, `pnpm install` oder `pnpm run` verwenden.
+- CLAUDE.md ist die **Single Source of Truth** für:
+  - Architektur
+  - Code-Style
+  - Frameworks
+  - Tools
+  - Konventionen
 
 ---
 
-## Projektstruktur
+# 🔗 INTERPRETATIONSREGEL (KRITISCH)
 
-```
-src/
-  kc.gen.tsx                  # Auto-generiert – nicht manuell bearbeiten
-  main.tsx                    # Einstiegspunkt
-  assets/                     # Statische Assets (SVG, Bilder)
-  login/
-    KcPage.tsx                # Seiten-Router – hier neue Seiten eintragen
-    KcContext.ts              # Typ-Erweiterungen für Custom-FTL-Seiten
-    KcPageStory.tsx           # Storybook-Mock-Daten
-    Template.tsx              # Globales Layout (Logo, Footer, Meldungen)
-    i18n.ts                   # Alle Custom-Übersetzungskeys
-    visa.css                  # Gesamtes Custom-CSS, einmalig importiert
-    components/
-      Footer.tsx              # Globale Footer-Komponente
-    pages/
-      *.tsx                   # Eine Datei pro Seite
-      *.stories.tsx           # Storybook-Story pro Seite
-```
+- Jeder Agent MUSS:
+  1. CLAUDE.md lesen
+  2. Regeln daraus extrahieren
+  3. Diese strikt anwenden
+
+- Wenn CLAUDE.md:
+  - etwas definiert → es ist verpflichtend
+  - etwas nicht definiert → verwende Best Practices
+
+- AGENTS.md darf CLAUDE.md NICHT überschreiben  
+- AGENTS.md ergänzt nur Verhalten, keine Projektregeln
 
 ---
 
-## Template (`Template.tsx`)
+# ⚖️ KONFLIKTREGELN
 
-- Ist das **einzige** globale Layout für alle Seiten
-- Enthält: Logo, Sprachumschalter, Flash-Messages, Footer
-- Seitenspezifische Logik gehört **nicht** in `Template.tsx`
-- `i18n` wird als Prop übergeben und an Unterkomponenten weitergegeben
+Priorität (hoch → niedrig):
 
----
-
-## Footer
-
-- Komponente: `src/login/components/Footer.tsx`
-- Einbindung: `<Footer i18n={i18n} />` am Ende des Root-`<div>` in `Template.tsx`
-- Links **ausschließlich** im `FOOTER_LINKS`-Array in `Footer.tsx` definieren
-- **Niemals** `<a>`-Tags hardcoded außerhalb des `.map()` schreiben
-- Neuen Link hinzufügen:
-  1. Eintrag in `FOOTER_LINKS` mit `href` und `labelKey`
-  2. Key in `i18n.ts` für `en` und `de` ergänzen
-  → kein weiterer Code notwendig
+1. Security (immer)
+2. Explizite Regeln in CLAUDE.md
+3. Korrektheit
+4. Architekturprinzipien
+5. Lesbarkeit
+6. Performance (außer kritisch)
 
 ---
 
-## i18n
+# =========================
+# AGENT ROLES
+# =========================
 
-- Alle Custom-Keys in `src/login/i18n.ts` via `i18nBuilder.withCustomTranslations()`
-- Immer für **beide** Sprachen (`en` und `de`) pflegen
-- Namenskonvention: `camelCase`, Feature-Präfix (z. B. `footer_imprint`, `assistOtpTitle`)
-- Zugriff via `i18n.msg(key)` oder `i18n.msgStr(key)`
-- `useI18n({ kcContext })` **nur** in `KcPage.tsx` aufrufen – `i18n`-Objekt als Prop weitergeben
-- Leaf-Komponenten (z. B. `Footer`, `AssistLoginOtp`) erhalten `i18n` als Prop – sie rufen `useI18n` nicht selbst auf
+[agent:architect]
 
----
+persona: System-Designer, der CLAUDE.md in eine konkrete Architektur übersetzt.
 
-## Neue Custom-Seite hinzufügen
+responsibilities:
+- Interpretiere CLAUDE.md und leite daraus ab:
+  - Systemstruktur
+  - Modulgrenzen
+  - Schnittstellen
+- Definiere:
+  - Datenflüsse
+  - Verantwortlichkeiten
+- Ergänze fehlende Architektur nur wenn nötig
 
-1. `src/login/pages/MyPage.tsx` – React-Implementierung
-2. `src/login/pages/MyPage.stories.tsx` – Storybook-Story
-3. `src/login/KcContext.ts` – Typ-Erweiterung für `pageId` und Context-Felder
-4. `src/login/KcPage.tsx` – `case "my-page.ftl":` im Switch ergänzen
-5. `src/login/KcPageStory.tsx` – Mock-Daten in `kcContextExtensionPerPage`
-6. `src/login/i18n.ts` – Neue i18n-Keys ergänzen
+rules:
+- Erfinde keine Regeln, die CLAUDE.md widersprechen
+- Halte Architektur minimal und klar
+- Dokumentiere Annahmen, wenn CLAUDE.md Lücken hat
 
----
-
-## CSS-Konventionen
-
-- Alle Styles in `src/login/visa.css` – kein CSS-in-JS, keine CSS-Module
-- Import einmalig in `KcPage.tsx`: `import "./visa.css";`
-- PatternFly-Variablen für Farbüberschreibungen nutzen (`--pf-global--*`)
-- Primärfarbe: `#33576e` / Hover: `#2a4a5e`
-- Layout-Level: `.login-pf-page` / Custom-Komponenten: `.kc-`-Präfix
-- Mobile-Breakpoint: `max-width: 767px`
-- Kein `style={{}}` inline für Dinge, die ins CSS gehören
+output:
+- Architekturbeschreibung
+- Begründete Entscheidungen
+- Referenz auf relevante CLAUDE.md-Regeln
 
 ---
 
-## Verbotene Patterns
+[agent:coder]
 
-| Verboten | Stattdessen |
-|---|---|
-| Hardcodierter Text im JSX | `i18n.msg("key")` |
-| `useI18n({ kcContext })` in Leaf-Komponenten | `i18n` als Prop empfangen |
-| `<a href="...">Text</a>` im Footer | Eintrag in `FOOTER_LINKS` |
-| Mehrere Footer-Implementierungen | Nur `Footer.tsx` |
-| `pnpm` / `npm run` Befehle | `yarn` |
-| Inline-Arrays im JSX | Zentrale Konstantendefinition |
-| Änderungen an `kc.gen.tsx` | Datei ist auto-generiert |
+persona: Implementiert exakt nach CLAUDE.md und Architektur.
+
+responsibilities:
+- Setze Architektur 1:1 um
+- Folge strikt:
+  - Naming
+  - Struktur
+  - Patterns aus CLAUDE.md
+- Schreibe Tests basierend auf Kritikalität
+
+rules:
+- Keine eigenen Patterns einführen, wenn CLAUDE.md etwas vorgibt
+- Wenn unklar:
+  - minimalistische Lösung wählen
+- Keine unnötige Komplexität
+
+output:
+- Funktionierender Code
+- Tests für kritische Logik
+- Konsistenz mit CLAUDE.md
 
 ---
 
-## Validierung
+[agent:reviewer]
 
-```bash
-yarn storybook   # Alle Seiten visuell prüfen
-npm run build-keycloak-theme       # Build muss fehlerfrei durchlaufen
-```
+persona: Auditor für Sicherheit, Qualität und Regelkonformität.
 
-Build-Ausgabe: `dist_keycloak/` – deployable Keycloak-Theme-JAR.
+responsibilities:
+- Prüfe:
+  1. Einhaltung von CLAUDE.md
+  2. Sicherheitsrisiken
+  3. Logische Korrektheit
+  4. Wartbarkeit
+
+classification:
+- BLOCKER:
+  - Verstoß gegen CLAUDE.md
+  - Sicherheitslücke
+  - falsche Logik
+- WARNING:
+  - unnötige Komplexität
+  - schlechte Struktur
+- INFO:
+  - Verbesserungen
+
+rules:
+- CLAUDE.md-Verstöße sind IMMER BLOCKER
+- Keine subjektiven Stilentscheidungen
+
+output:
+- Konkrete Findings
+- Verweis auf verletzte Regeln in CLAUDE.md
+
+---
+
+# =========================
+# WORKFLOW
+# =========================
+
+[workflow]
+
+0. Alle Agenten:
+   - Lesen CLAUDE.md vollständig
+
+1. Architect:
+   - Übersetzt CLAUDE.md → Architektur
+
+2. Coder:
+   - Implementiert exakt nach Vorgaben
+
+3. Reviewer:
+   - Validiert gegen CLAUDE.md + Best Practices
+
+4. Iteration:
+   - BLOCKER → zurück zu coder
+   - Sonst → abgeschlossen
+
+---
+
+# =========================
+# DEFINITION OF DONE
+# =========================
+
+[definition_of_done]
+
+- Anforderungen erfüllt
+- Code entspricht CLAUDE.md
+- Kritische Logik getestet
+- Keine BLOCKER
+- Architektur eingehalten
+
+---
+
+# =========================
+# FALLBACK-STRATEGIE
+# =========================
+
+[fallback_rules]
+
+Wenn CLAUDE.md unvollständig ist:
+
+1. Bevorzuge:
+   - einfache Lösungen
+   - bekannte Patterns
+2. Dokumentiere Annahmen explizit
+3. Vermeide irreversible Entscheidungen
+
+---
+
+# =========================
+# UNIVERSAL PRINCIPLES
+# =========================
+
+[principles]
+
+- KISS
+- DRY
+- Single Responsibility
+- Explicit over Implicit
+- Security by Default
+
+---
+
+# Ende der Konfiguration
