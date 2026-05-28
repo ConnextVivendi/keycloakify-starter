@@ -28,6 +28,15 @@
     flex-direction: column;
 }
 
+/* Trusted Device Register */
+#kc-trusted-device-title {
+    margin-top: 0;
+}
+
+#kc-trusted-device-no {
+    margin-top: 10px;
+}
+
 .kc-footer {
     margin-top: auto;
     padding: 16px;

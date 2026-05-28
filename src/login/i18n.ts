@@ -31,7 +31,14 @@ const { useI18n, ofTypeI18n } = i18nBuilder
 			loginOtpOneTime: "One-time code",
 			loginOtpOneTimeDescription: "Enter the one-time code that we sent you by email.",
 			loginOtpOneTimeDescription2: "Didn't receive an email? Please check your spam folder or request a new code.",
-			loginOtpOneTime2faHint: "For added security and convenience, we recommend setting up an authenticator app or a security key in your account management settings."
+			loginOtpOneTime2faHint: "For added security and convenience, we recommend setting up an authenticator app or a security key in your account management settings.",
+			trustedDeviceDisplayName: "Trusted device",
+			trustedDeviceHelpText: "Trusted devices are verified automatically.",
+			trustedDeviceHeader: "Trust this device?",
+			trustedDeviceYes: "Yes",
+			trustedDeviceNo: "No",
+			trustedDeviceExplanation: "Trusted devices do not need a second factor. Do not trust public or shared machines.",
+			trustedDeviceName: "Name this device"
 		},
 		de: {
 			assistOtpServiceTimeout: "Der OTP-Dienst hat nicht rechtzeitig geantwortet. Bitte versuchen Sie es erneut.",
@@ -58,7 +65,14 @@ const { useI18n, ofTypeI18n } = i18nBuilder
 			loginOtpOneTime: "Einmalcode",
 			loginOtpOneTimeDescription: "Geben Sie den Einmalcode ein, den wir Ihnen per E-Mail gesendet haben.",
 			loginOtpOneTimeDescription2: "Keine E-Mail erhalten? Bitte prüfen Sie auch Ihren Spam-Ordner oder fordern Sie einen neuen Code an.",
-			loginOtpOneTime2faHint: "Für mehr Sicherheit und Komfort empfehlen wir, in der Kontoverwaltung eine Authenticator-App oder einen Sicherheitsschlüssel einzurichten."
+			loginOtpOneTime2faHint: "Für mehr Sicherheit und Komfort empfehlen wir, in der Kontoverwaltung eine Authenticator-App oder einen Sicherheitsschlüssel einzurichten.",
+			trustedDeviceDisplayName: "Vertrauenswürdiges Gerät",
+			trustedDeviceHelpText: "Vertrauenswürdige Geräte werden automatisch überprüft",
+			trustedDeviceHeader: "Diesem Gerät vertrauen?",
+			trustedDeviceYes: "Ja",
+			trustedDeviceNo: "Nein",
+			trustedDeviceExplanation: "Der zweite Faktor wird auf einem vertrauenswürdigen Gerät nicht mehr angefordert. Vertrauen Sie niemals öffentlichen oder gemeinsam genutzten Computern.",
+			trustedDeviceName: "Name dieses Geräts"
 		}
 	})
 	.build();

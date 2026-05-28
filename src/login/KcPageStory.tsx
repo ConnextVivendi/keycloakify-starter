@@ -42,6 +42,12 @@ const kcContextExtensionPerPage: KcContextExtensionPerPage = {
         auth: {
             attemptedUsername: "user@user.com"
         }
+    },
+    "trusted-device-register.ftl": {
+        trustedDeviceName: "Chrome on Windows",
+        url: {
+            loginAction: "#"
+        }
     }
 };
 

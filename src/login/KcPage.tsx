@@ -10,6 +10,7 @@ import EmailConfirmation from "./pages/EmailConfirmation";
 import EmailConfirmationError from "./pages/EmailConfirmationError";
 import ViewEmail from "./pages/ViewEmail";
 import ViewEmailContinuation from "./pages/ViewEmailContinuation";
+import TrustedDeviceRegister from "./pages/TrustedDeviceRegister";
 const UserProfileFormFields = lazy(
     () => import("keycloakify/login/UserProfileFormFields")
 );
@@ -70,6 +71,14 @@ export default function KcPage(props: { kcContext: KcContext }) {
                     case "view-email-continuation.ftl":
                         return (
                             <ViewEmailContinuation
+                                {...{ kcContext, i18n, classes }}
+                                Template={Template}
+                                doUseDefaultCss={true}
+                            />
+                        );
+                    case "trusted-device-register.ftl":
+                        return (
+                            <TrustedDeviceRegister
                                 {...{ kcContext, i18n, classes }}
                                 Template={Template}
                                 doUseDefaultCss={true}

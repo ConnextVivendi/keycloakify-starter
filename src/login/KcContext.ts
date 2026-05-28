@@ -41,6 +41,12 @@ export type KcContextExtensionPerPage = {
             attemptedUsername: string;
         };
     };
+    "trusted-device-register.ftl": {
+        trustedDeviceName: string;
+        url: {
+            loginAction: string;
+        };
+    };
 };
 
 export type KcContext = ExtendKcContext<KcContextExtension, KcContextExtensionPerPage>;
