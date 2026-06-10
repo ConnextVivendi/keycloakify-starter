@@ -14,6 +14,11 @@ import TrustedDeviceRegister from "./pages/TrustedDeviceRegister";
 const UserProfileFormFields = lazy(
     () => import("keycloakify/login/UserProfileFormFields")
 );
+const WebauthnRegister = lazy(() => import("./pages/WebauthnRegister"));
+const LoginUpdatePassword = lazy(() => import("./pages/LoginUpdatePassword"));
+const UpdateEmail = lazy(() => import("./pages/UpdateEmail"));
+const LoginConfigTotp = lazy(() => import("./pages/LoginConfigTotp"));
+const LoginRecoveryAuthnCodeConfig = lazy(() => import("./pages/LoginRecoveryAuthnCodeConfig"));
 
 import "./visa.css";
 
@@ -79,6 +84,48 @@ export default function KcPage(props: { kcContext: KcContext }) {
                     case "trusted-device-register.ftl":
                         return (
                             <TrustedDeviceRegister
+                                {...{ kcContext, i18n, classes }}
+                                Template={Template}
+                                doUseDefaultCss={true}
+                            />
+                        );
+                    case "webauthn-register.ftl":
+                        return (
+                            <WebauthnRegister
+                                {...{ kcContext, i18n, classes }}
+                                Template={Template}
+                                doUseDefaultCss={true}
+                            />
+                        );
+                    case "login-update-password.ftl":
+                        return (
+                            <LoginUpdatePassword
+                                {...{ kcContext, i18n, classes }}
+                                Template={Template}
+                                doUseDefaultCss={true}
+                            />
+                        );
+                    case "update-email.ftl":
+                        return (
+                            <UpdateEmail
+                                {...{ kcContext, i18n, classes }}
+                                Template={Template}
+                                doUseDefaultCss={true}
+                                UserProfileFormFields={UserProfileFormFields}
+                                doMakeUserConfirmPassword={doMakeUserConfirmPassword}
+                            />
+                        );
+                    case "login-config-totp.ftl":
+                        return (
+                            <LoginConfigTotp
+                                {...{ kcContext, i18n, classes }}
+                                Template={Template}
+                                doUseDefaultCss={true}
+                            />
+                        );
+                    case "login-recovery-authn-code-config.ftl":
+                        return (
+                            <LoginRecoveryAuthnCodeConfig
                                 {...{ kcContext, i18n, classes }}
                                 Template={Template}
                                 doUseDefaultCss={true}
