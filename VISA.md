@@ -220,10 +220,15 @@ Native Keycloak-Seite (keine Context-Erweiterung nötig) für den Login mit eine
 
 Dieselbe Autofill-/Numerik-Anpassung wurde konsistent auch auf `assist-login-otp.ftl` und `otp-form.ftl` übertragen; `otp-form.ftl` hat zusätzlich einen Doppel-Submit-Schutz (`isSubmitting`) analog zu `login-otp.ftl`/`assist-login-otp.ftl` erhalten.
 
+## Bugfix: zu großer Abstand zwischen Instruction-Text und Submit-Button
+
+`loginOtpInstruction` (in `#kc-form-options`) und der Submit-Button (in `#kc-form-buttons`) steckten in zwei **separaten** `.form-group`-Divs statt – wie im offiziellen Keycloakify-Default-Template (`node_modules/keycloakify/src/login/pages/LoginOtp.tsx`) und in `otp-form.ftl` – in einem **gemeinsamen** `.form-group`. Durch den Bootstrap-Clearfix `.form-horizontal .form-group:before/:after { display: table; clear: both }` kollabieren die `.form-group`-Margin (15px) und die globale `#kc-form-buttons { margin-top: 20px; }`-Regel (aus `login.css`) bei getrennten Divs NICHT (Summe: 35px statt der üblichen 20px). Korrigiert durch Zusammenführen von `#kc-form-options` und `#kc-form-buttons` in ein gemeinsames `.form-group`, wie im Original-Template. Gleicher Fix in `assist-login-otp.ftl`.
+
 ## Relevante Dateien
 
 -   `src/login/pages/LoginOtp.tsx`
 -   `src/login/pages/LoginOtp.stories.tsx`
+-   `src/login/pages/AssistLoginOtp.tsx`
 -   `src/login/i18n.ts` – `loginOtpTitle`, `loginOtpInstruction`
 
 ---

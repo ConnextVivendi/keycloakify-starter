@@ -73,8 +73,7 @@ export default function AssistLoginOtp(props: PageProps<Extract<KcContext, { pag
                             <p className="instruction">{msg("assistOtpInstruction")}</p>
                         </div>
                     </div>
-                </div>
-                <div className={kcClsx("kcFormGroupClass")}>
+
                     <div id="kc-form-buttons" className={kcClsx("kcFormButtonsClass")}>
                         <input
                             className={kcClsx("kcButtonClass", "kcButtonPrimaryClass", "kcButtonBlockClass", "kcButtonLargeClass")}
