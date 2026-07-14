@@ -18,7 +18,10 @@ const WebauthnRegister = lazy(() => import("./pages/WebauthnRegister"));
 const LoginUpdatePassword = lazy(() => import("./pages/LoginUpdatePassword"));
 const UpdateEmail = lazy(() => import("./pages/UpdateEmail"));
 const LoginConfigTotp = lazy(() => import("./pages/LoginConfigTotp"));
-const LoginRecoveryAuthnCodeConfig = lazy(() => import("./pages/LoginRecoveryAuthnCodeConfig"));
+const LoginRecoveryAuthnCodeConfig = lazy(
+    () => import("./pages/LoginRecoveryAuthnCodeConfig")
+);
+const LoginOtp = lazy(() => import("./pages/LoginOtp"));
 
 import "./visa.css";
 
@@ -126,6 +129,14 @@ export default function KcPage(props: { kcContext: KcContext }) {
                     case "login-recovery-authn-code-config.ftl":
                         return (
                             <LoginRecoveryAuthnCodeConfig
+                                {...{ kcContext, i18n, classes }}
+                                Template={Template}
+                                doUseDefaultCss={true}
+                            />
+                        );
+                    case "login-otp.ftl":
+                        return (
+                            <LoginOtp
                                 {...{ kcContext, i18n, classes }}
                                 Template={Template}
                                 doUseDefaultCss={true}

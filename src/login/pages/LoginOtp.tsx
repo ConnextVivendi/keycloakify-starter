@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { getKcClsx } from "keycloakify/login/lib/kcClsx";
 import { kcSanitize } from "keycloakify/lib/kcSanitize";
 import type { PageProps } from "keycloakify/login/pages/PageProps";
 import type { KcContext } from "../KcContext";
 import type { I18n } from "../i18n";
 
-export default function AssistLoginOtp(props: PageProps<Extract<KcContext, { pageId: "assist-login-otp.ftl" }>, I18n>) {
+export default function LoginOtp(props: PageProps<Extract<KcContext, { pageId: "login-otp.ftl" }>, I18n>) {
     const { kcContext, i18n, doUseDefaultCss, Template, classes } = props;
 
     const { kcClsx } = getKcClsx({
@@ -13,9 +13,10 @@ export default function AssistLoginOtp(props: PageProps<Extract<KcContext, { pag
         classes
     });
 
+    const { otpLogin, url, messagesPerField } = kcContext;
+
     const { msg, msgStr } = i18n;
 
-    const { url, messagesPerField } = kcContext;
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     return (
@@ -24,8 +25,8 @@ export default function AssistLoginOtp(props: PageProps<Extract<KcContext, { pag
             i18n={i18n}
             doUseDefaultCss={doUseDefaultCss}
             classes={classes}
-            displayMessage={!messagesPerField.existsError("otp")}
-            headerNode={msg("assistOtpTitle")}
+            displayMessage={!messagesPerField.existsError("totp")}
+            headerNode={msg("loginOtpTitle")}
         >
             <form
                 id="kc-otp-login-form"
@@ -37,43 +38,72 @@ export default function AssistLoginOtp(props: PageProps<Extract<KcContext, { pag
                 }}
                 method="post"
             >
+                {otpLogin.userOtpCredentials.length > 1 && (
+                    <div className={kcClsx("kcFormGroupClass")}>
+                        <div className={kcClsx("kcInputWrapperClass")}>
+                            {otpLogin.userOtpCredentials.map((otpCredential, index) => (
+                                <Fragment key={index}>
+                                    <input
+                                        id={`kc-otp-credential-${index}`}
+                                        className={kcClsx("kcLoginOTPListInputClass")}
+                                        type="radio"
+                                        name="selectedCredentialId"
+                                        value={otpCredential.id}
+                                        defaultChecked={otpCredential.id === otpLogin.selectedCredentialId}
+                                    />
+                                    <label htmlFor={`kc-otp-credential-${index}`} className={kcClsx("kcLoginOTPListClass")} tabIndex={index}>
+                                        <span className={kcClsx("kcLoginOTPListItemHeaderClass")}>
+                                            <span className={kcClsx("kcLoginOTPListItemIconBodyClass")}>
+                                                <i className={kcClsx("kcLoginOTPListItemIconClass")} aria-hidden="true"></i>
+                                            </span>
+                                            <span className={kcClsx("kcLoginOTPListItemTitleClass")}>{otpCredential.userLabel}</span>
+                                        </span>
+                                    </label>
+                                </Fragment>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
                 <div className={kcClsx("kcFormGroupClass")}>
                     <div className={kcClsx("kcLabelWrapperClass")}>
                         <label htmlFor="otp" className={kcClsx("kcLabelClass")}>
-                            {msg("assistOtpLabel")}
+                            {msg("loginOtpOneTime")}
                         </label>
                     </div>
                     <div className={kcClsx("kcInputWrapperClass")}>
                         <input
                             id="otp"
                             name="otp"
+                            autoComplete="one-time-code"
                             type="text"
                             inputMode="numeric"
                             pattern="[0-9]*"
-                            autoComplete="one-time-code"
-                            autoFocus
                             className={kcClsx("kcInputClass")}
-                            aria-invalid={messagesPerField.existsError("otp")}
+                            autoFocus
+                            aria-invalid={messagesPerField.existsError("totp")}
                         />
-                        {messagesPerField.existsError("otp") && (
+                        {messagesPerField.existsError("totp") && (
                             <span
-                                id="input-error-otp"
+                                id="input-error-otp-code"
                                 className={kcClsx("kcInputErrorMessageClass")}
                                 aria-live="polite"
                                 dangerouslySetInnerHTML={{
-                                    __html: kcSanitize(messagesPerField.get("otp"))
+                                    __html: kcSanitize(messagesPerField.get("totp"))
                                 }}
                             />
                         )}
                     </div>
                 </div>
+
                 <div className={kcClsx("kcFormGroupClass")}>
                     <div id="kc-form-options" className={kcClsx("kcFormOptionsClass")}>
                         <div className={kcClsx("kcFormOptionsWrapperClass")}>
-                            <p className="instruction">{msg("assistOtpInstruction")}</p>
+                            <p className="instruction">{msg("loginOtpInstruction")}</p>
                         </div>
                     </div>
                 </div>
+
                 <div className={kcClsx("kcFormGroupClass")}>
                     <div id="kc-form-buttons" className={kcClsx("kcFormButtonsClass")}>
                         <input

@@ -20,14 +20,14 @@ export default function EmailConfirmation(props: PageProps<Extract<KcContext, { 
             displayRequiredFields={false}
             headerNode={<></>}
         >
-                <div>
-                    <div style={{ marginBottom: ".5rem" }}>{msg("magicLinkSuccessfulLogin")}</div>
-            {magicLinkContinuation.sameBrowser && (
+            <div>
+                <div className="kc-email-confirmation-message">{msg("magicLinkSuccessfulLogin")}</div>
+                {magicLinkContinuation.sameBrowser && (
                     <a href={magicLinkContinuation.url} id="mode-barcode">
                         {msg("loginPage")}
-                    </a>                    
-            )}
-                </div>
+                    </a>
+                )}
+            </div>
         </Template>
     );
 }

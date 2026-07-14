@@ -16,9 +16,9 @@
     --pf-global--danger-color--100: #dc3545;
 
     /* Font family */
-    --pf-global--FontFamily--sans-serif: 'Roboto', system-ui, -apple-system, 'Segoe UI',
-        'Helvetica Neue', 'Arial', 'Noto Sans', 'Liberation Sans', sans-serif,
-        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --pf-global--FontFamily--sans-serif: "Roboto", system-ui, -apple-system, "Segoe UI",
+        "Helvetica Neue", "Arial", "Noto Sans", "Liberation Sans", sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 /* Footer Layout */
@@ -56,7 +56,7 @@
 
 /* Background: radial gradient */
 body.kcBodyClass,
-.login-pf body {    
+.login-pf body {
     background: none;
 }
 .login-pf {
@@ -68,7 +68,7 @@ body.kcBodyClass,
 @media (max-width: 767px) {
     .login-pf {
         background: white;
-    }    
+    }
     .kc-footer nav a {
         color: rgba(51, 87, 110, 0.75);
     }
@@ -132,4 +132,30 @@ a:hover {
 input[type="checkbox"],
 input[type="radio"] {
     accent-color: #33576e;
+}
+
+/* OTP form (email code): username reminder header sizing */
+.kc-otp-username {
+    font-size: 16px;
+}
+
+/* OTP form (email code): 2FA upsell hint */
+.kc-otp-2fa-hint {
+    font-style: italic;
+}
+
+/* OTP form (email code): vertical gap between stacked block buttons (submit/resend) */
+#kc-resend {
+    margin-top: 10px;
+}
+
+/* Magic-link waiting pages: center username reminder */
+.kc-username-centered {
+    display: flex;
+    justify-content: center;
+}
+
+/* Email confirmation: spacing below success message */
+.kc-email-confirmation-message {
+    margin-bottom: 0.5rem;
 }

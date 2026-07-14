@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { getKcClsx } from "keycloakify/login/lib/kcClsx";
 import type { PageProps } from "keycloakify/login/pages/PageProps";
 import type { KcContext } from "../KcContext";
@@ -15,6 +16,8 @@ export default function OtpForm(props: PageProps<Extract<KcContext, { pageId: "o
 
     const { auth, url, messagesPerField } = kcContext;
 
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
     return (
         <Template
             kcContext={kcContext}
@@ -23,7 +26,7 @@ export default function OtpForm(props: PageProps<Extract<KcContext, { pageId: "o
             classes={classes}
             displayInfo={true}
             headerNode={
-                <div id="kc-username" className={kcClsx("kcFormGroupClass")} style={{ fontSize: "16px" }}>
+                <div id="kc-username" className={`${kcClsx("kcFormGroupClass")} kc-otp-username`}>
                     <label id="kc-attempted-username">{auth.attemptedUsername}</label>
                     <a id="reset-login" href={url.loginRestartFlowUrl} aria-label={msgStr("restartLoginTooltip")}>
                         <div className="kc-login-tooltip">
@@ -36,7 +39,16 @@ export default function OtpForm(props: PageProps<Extract<KcContext, { pageId: "o
         >
             <p>{msg("loginOtpOneTimeDescription")}</p>
             <p>{msg("loginOtpOneTimeDescription2")}</p>
-            <form id="kc-otp-login-form" className={kcClsx("kcFormClass")} action={url.loginAction} method="post">
+            <form
+                id="kc-otp-login-form"
+                className={kcClsx("kcFormClass")}
+                action={url.loginAction}
+                onSubmit={() => {
+                    setIsSubmitting(true);
+                    return true;
+                }}
+                method="post"
+            >
                 <div className={kcClsx("kcFormGroupClass")}>
                     <div className={kcClsx("kcLabelWrapperClass")}>
                         <label htmlFor="otp" className={kcClsx("kcLabelClass")}>
@@ -48,8 +60,10 @@ export default function OtpForm(props: PageProps<Extract<KcContext, { pageId: "o
                         <input
                             id="otp"
                             name="otp"
-                            autoComplete="off"
+                            autoComplete="one-time-code"
                             type="text"
+                            inputMode="numeric"
+                            pattern="[0-9]*"
                             className={kcClsx("kcInputClass")}
                             autoFocus
                             aria-invalid={messagesPerField.existsError("totp") ? "true" : undefined}
@@ -64,28 +78,30 @@ export default function OtpForm(props: PageProps<Extract<KcContext, { pageId: "o
                         )}
                     </div>
                 </div>
-                
-            <p style={{ fontStyle: "italic" }}>{msg("loginOtpOneTime2faHint")}</p>
+
+                <p className="kc-otp-2fa-hint">{msg("loginOtpOneTime2faHint")}</p>
 
                 <div className={kcClsx("kcFormGroupClass")}>
                     <div id="kc-form-options" className={kcClsx("kcFormOptionsClass")}>
                         <div className={kcClsx("kcFormOptionsWrapperClass")} />
                     </div>
 
-                    <div id="kc-form-buttons" className={kcClsx("kcFormButtonsClass")} style={{ display: "flex", gap: "0.5rem" }}>
+                    <div id="kc-form-buttons" className={kcClsx("kcFormButtonsClass")}>
                         <input
-                            className={kcClsx("kcButtonClass", "kcButtonPrimaryClass", "kcButtonLargeClass")}
+                            className={kcClsx("kcButtonClass", "kcButtonPrimaryClass", "kcButtonBlockClass", "kcButtonLargeClass")}
                             name="submit"
                             id="kc-submit"
                             type="submit"
                             value={msgStr("doSubmit")}
+                            disabled={isSubmitting}
                         />
                         <input
-                            className={kcClsx("kcButtonClass", "kcButtonPrimaryClass", "kcButtonLargeClass")}
+                            className={kcClsx("kcButtonClass", "kcButtonDefaultClass", "kcButtonBlockClass", "kcButtonLargeClass")}
                             name="resend"
                             id="kc-resend"
                             type="submit"
                             value={msgStr("doResend")}
+                            disabled={isSubmitting}
                         />
                     </div>
                 </div>

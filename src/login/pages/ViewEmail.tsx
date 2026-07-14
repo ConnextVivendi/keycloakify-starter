@@ -25,12 +25,12 @@ export default function ViewEmail(props: PageProps<Extract<KcContext, { pageId: 
             displayRequiredFields={false}
             displayMessage={false}
             headerNode={
-                <div id="kc-username" className={kcClsx("kcFormGroupClass")} style={{ display: "flex", justifyContent: "center" }}>
+                <div id="kc-username" className={`${kcClsx("kcFormGroupClass")} kc-username-centered`}>
                     <label id="kc-attempted-username">{auth.attemptedUsername}</label>
                     <a id="reset-login" href={url.loginRestartFlowUrl} aria-label={msgStr("restartLoginTooltip")}>
                         <div className="kc-login-tooltip">
                             <i className={kcClsx("kcResetFlowIcon")}></i>
-                            <span className="kc-tooltip-text">${msg("restartLoginTooltip")}</span>
+                            <span className="kc-tooltip-text">{msg("restartLoginTooltip")}</span>
                         </div>
                     </a>
                 </div>

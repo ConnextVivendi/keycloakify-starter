@@ -4,9 +4,7 @@ import type { PageProps } from "keycloakify/login/pages/PageProps";
 import type { KcContext } from "../KcContext";
 import type { I18n } from "../i18n";
 
-export default function TrustedDeviceRegister(
-    props: PageProps<Extract<KcContext, { pageId: "trusted-device-register.ftl" }>, I18n>
-) {
+export default function TrustedDeviceRegister(props: PageProps<Extract<KcContext, { pageId: "trusted-device-register.ftl" }>, I18n>) {
     const { kcContext, i18n, doUseDefaultCss, Template, classes } = props;
 
     const { kcClsx } = getKcClsx({ doUseDefaultCss, classes });
@@ -27,19 +25,8 @@ export default function TrustedDeviceRegister(
     }
 
     return (
-        <Template
-            kcContext={kcContext}
-            i18n={i18n}
-            doUseDefaultCss={doUseDefaultCss}
-            classes={classes}
-            headerNode={<></>}
-        >
-            <form
-                id="kc-form-trusted-device"
-                className={kcClsx("kcFormClass")}
-                action={url.loginAction}
-                method="post"
-            >
+        <Template kcContext={kcContext} i18n={i18n} doUseDefaultCss={doUseDefaultCss} classes={classes} headerNode={<></>}>
+            <form id="kc-form-trusted-device" className={kcClsx("kcFormClass")} action={url.loginAction} method="post">
                 <h2 id="kc-trusted-device-title">{msg("trustedDeviceHeader")}</h2>
 
                 <div className={kcClsx("kcFormGroupClass")}>
@@ -47,21 +34,11 @@ export default function TrustedDeviceRegister(
                         <div className={kcClsx("kcFormOptionsWrapperClass")} />
                     </div>
 
-                    <input
-                        type="hidden"
-                        id="kc-trusted-device-name"
-                        name="trusted-device-name"
-                        value={deviceName}
-                    />
+                    <input type="hidden" id="kc-trusted-device-name" name="trusted-device-name" value={deviceName} />
 
                     <div className={kcClsx("kcFormButtonsClass")}>
                         <button
-                            className={kcClsx(
-                                "kcButtonClass",
-                                "kcButtonPrimaryClass",
-                                "kcButtonBlockClass",
-                                "kcButtonLargeClass"
-                            )}
+                            className={kcClsx("kcButtonClass", "kcButtonPrimaryClass", "kcButtonBlockClass", "kcButtonLargeClass")}
                             name="trusted-device"
                             id="kc-trusted-device-yes"
                             type="submit"
@@ -72,12 +49,7 @@ export default function TrustedDeviceRegister(
                         </button>
 
                         <button
-                            className={kcClsx(
-                                "kcButtonClass",
-                                "kcButtonDefaultClass",
-                                "kcButtonBlockClass",
-                                "kcButtonLargeClass"
-                            )}
+                            className={kcClsx("kcButtonClass", "kcButtonDefaultClass", "kcButtonBlockClass", "kcButtonLargeClass")}
                             name="trusted-device"
                             id="kc-trusted-device-no"
                             type="submit"
@@ -86,11 +58,7 @@ export default function TrustedDeviceRegister(
                             {msg("trustedDeviceNo")}
                         </button>
 
-                        <div
-                            className={kcClsx("kcInputHelperTextAfterClass")}
-                            id="form-help-text-after-trusted-device"
-                            aria-live="polite"
-                        >
+                        <div className={kcClsx("kcInputHelperTextAfterClass")} id="form-help-text-after-trusted-device" aria-live="polite">
                             {msg("trustedDeviceExplanation")}
                         </div>
                     </div>
