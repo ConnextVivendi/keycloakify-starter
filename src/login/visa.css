@@ -76,6 +76,15 @@ body.kcBodyClass,
     .kc-footer nav a:hover {
         color: #33576e;
     }
+
+    /* Base theme ships -40px here, a leftover from the old Bootstrap .container
+       wrapper that no longer exists in this project's Template.tsx. .card-pf's
+       real padding is 20px, so the -40px bleed overflows 20px past the viewport
+       edge on mobile (where .card-pf is flush with the edge), causing a
+       horizontal scrollbar. -20px matches the actual card padding. */
+    #kc-info {
+        margin: 20px -20px -30px;
+    }
 }
 
 /* Take full width of the container for the card. This fixes the changed behavior of display: flex on the card in the latest Keycloak version, which caused the card to shrink to fit its content instead of taking the full width. */
