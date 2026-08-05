@@ -52,7 +52,9 @@ const { useI18n, ofTypeI18n } = i18nBuilder
             trustedDeviceNo: "No",
             trustedDeviceExplanation:
                 "Trusted devices do not need a second factor. Do not trust public or shared machines.",
-            trustedDeviceName: "Name this device"
+            trustedDeviceName: "Name this device",
+            loginTitle: "Sign in to",
+            emailInstruction: "Enter your email address and click submit. We will then send you an email with further instructions."
         },
         de: {
             assistOtpServiceTimeout:
@@ -102,7 +104,9 @@ const { useI18n, ofTypeI18n } = i18nBuilder
             trustedDeviceNo: "Nein",
             trustedDeviceExplanation:
                 "Der zweite Faktor wird auf einem vertrauenswürdigen Gerät nicht mehr angefordert. Vertrauen Sie niemals öffentlichen oder gemeinsam genutzten Computern.",
-            trustedDeviceName: "Name dieses Geräts"
+            trustedDeviceName: "Name dieses Geräts",
+            loginTitle: "Anmelden bei",
+            emailInstruction: "Geben Sie Ihre E-Mail Adresse ein und klicken Sie auf Absenden. Danach werden wir Ihnen eine E-Mail mit weiteren Instruktionen zusenden."
         }
     })
     .build();
