@@ -54,7 +54,10 @@ const { useI18n, ofTypeI18n } = i18nBuilder
                 "Trusted devices do not need a second factor. Do not trust public or shared machines.",
             trustedDeviceName: "Name this device",
             loginTitle: "Sign in to {0}",
-            emailInstruction: "Enter your email address and click submit. We will then send you an email with further instructions."
+            emailInstruction:
+                "Enter your email address and click submit. We will then send you an email with further instructions.",
+            errorBackToAccountManagement: "Back to account management",
+            errorRedirectNotice: "You will be redirected automatically in {0} seconds."
         },
         de: {
             assistOtpServiceTimeout:
@@ -106,7 +109,10 @@ const { useI18n, ofTypeI18n } = i18nBuilder
                 "Der zweite Faktor wird auf einem vertrauenswürdigen Gerät nicht mehr angefordert. Vertrauen Sie niemals öffentlichen oder gemeinsam genutzten Computern.",
             trustedDeviceName: "Name dieses Geräts",
             loginTitle: "Anmelden bei {0}",
-            emailInstruction: "Geben Sie Ihre E-Mail Adresse ein und klicken Sie auf Absenden. Danach werden wir Ihnen eine E-Mail mit weiteren Instruktionen zusenden."
+            emailInstruction:
+                "Geben Sie Ihre E-Mail Adresse ein und klicken Sie auf Absenden. Danach werden wir Ihnen eine E-Mail mit weiteren Instruktionen zusenden.",
+            errorBackToAccountManagement: "Zurück zur Kontoverwaltung",
+            errorRedirectNotice: "Sie werden in {0} Sekunden automatisch weitergeleitet."
         }
     })
     .build();

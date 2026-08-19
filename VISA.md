@@ -242,8 +242,50 @@ Folgende Seiten sind reguläre Keycloak-FTL-Seiten (keine Custom-SPI, kein Eintr
 -   `update-email.ftl` → `src/login/pages/UpdateEmail.tsx`
 -   `login-config-totp.ftl` → `src/login/pages/LoginConfigTotp.tsx`
 -   `login-recovery-authn-code-config.ftl` → `src/login/pages/LoginRecoveryAuthnCodeConfig.tsx`
+-   `error.ftl` → `src/login/pages/Error.tsx` (siehe eigener Abschnitt „Anpassung: error.ftl" für die abweichende Redirect-Logik)
 
-Routing für alle fünf erfolgt lazy-geladen in `src/login/KcPage.tsx`.
+Routing für alle sechs erfolgt lazy-geladen in `src/login/KcPage.tsx`.
+
+---
+
+# Anpassung: error.ftl
+
+Native Keycloak-Seite (keine Context-Erweiterung nötig, `message`/`client`/`skipLink` sind bereits Teil des Basis-`KcContext`). Anlass der Anpassung: Nutzer landeten bei Fehlern (z. B. „Cookie not found", wenn `client.baseUrl` nicht gesetzt war) auf einer Sackgasse ohne Weg zurück zur Anwendung.
+
+## Ziel-URL-Auflösung
+
+-   `client.baseUrl` (Keycloak Admin: „Home URL"), falls gesetzt → gilt als **bestätigtes** Ziel.
+-   Sonst Fallback auf hartkodiertes `https://services.connext.de` (`FALLBACK_BASE_URL` in `Error.tsx`) → gilt als **nicht bestätigt**, da nicht client-spezifisch verifiziert.
+
+## Redirect-/Button-Verhalten
+
+| Fall                                                         | Verhalten                                                                                                                                   |
+| ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `skipLink === true`                                          | Kein Link, kein Button, kein Redirect (Keycloak-Signal wird respektiert)                                                                    |
+| „Cookie not found"-Fehler **und** `client.baseUrl` bestätigt | Sofortiger Redirect, keine Verzögerung, kein Hinweistext                                                                                    |
+| Anderer Fehler, `client.baseUrl` bestätigt                   | Redirect nach 60 Sekunden (`DELAYED_REDIRECT_SECONDS`), mit Hinweistext (`errorRedirectNotice`) und manuellem Button für sofortigen Wechsel |
+| `client.baseUrl` leer (Fallback-URL aktiv)                   | Nur Button, kein automatischer Redirect (Ziel für diesen Client nicht offiziell bestätigt)                                                  |
+
+## Hinweis: Erkennung des „Cookie not found"-Fehlers (Heuristik, kein stabiler Key-Vergleich)
+
+Keycloak liefert für diesen Fehler nur den bereits übersetzten Fließtext in `message.summary`, keinen stabilen Message-Key. Erkennung erfolgt daher über `String.includes(...)` auf einen kurzen Teilstring statt auf den vollständigen Standardtext (`cookieNotFoundMessage` in `keycloakify/src/login/i18n/messages_defaultSet/{en,de}.ts`), damit realmspezifische Anpassungen des restlichen Satzes die Erkennung nicht brechen:
+
+-   Englisch: `"Cookie not found"`
+-   Deutsch: `"Cookie konnte nicht gefunden werden"`
+
+Wird der Anfang dieser Texte in einem Realm überschrieben, greift die Sofort-Redirect-Logik nicht mehr und der Fehler fällt in den 60-Sekunden-Zweig zurück.
+
+## Relevante Dateien
+
+-   `src/login/pages/Error.tsx`
+-   `src/login/pages/Error.stories.tsx`
+-   `src/login/KcPage.tsx` – Routing-Erweiterung: `case "error.ftl"`
+-   `src/login/visa.css` – `.kc-error-redirect-notice`
+
+## i18n-Keys
+
+-   `errorBackToAccountManagement`
+-   `errorRedirectNotice` (mit `{0}`-Platzhalter für die Sekundenanzahl)
 
 ## Feature-Flags (`src/login/config.ts`)
 

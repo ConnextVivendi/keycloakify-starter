@@ -28,6 +28,13 @@
     flex-direction: column;
 }
 
+/* Error Page */
+.kc-error-redirect-notice {
+    margin-top: 16px;
+    color: #6a6e73;
+    font-size: 0.875rem;
+}
+
 /* Trusted Device Register */
 #kc-trusted-device-title {
     margin-top: 0;

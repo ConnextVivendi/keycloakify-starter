@@ -22,6 +22,7 @@ const LoginRecoveryAuthnCodeConfig = lazy(
     () => import("./pages/LoginRecoveryAuthnCodeConfig")
 );
 const LoginOtp = lazy(() => import("./pages/LoginOtp"));
+const Error = lazy(() => import("./pages/Error"));
 
 import "./visa.css";
 
@@ -137,6 +138,14 @@ export default function KcPage(props: { kcContext: KcContext }) {
                     case "login-otp.ftl":
                         return (
                             <LoginOtp
+                                {...{ kcContext, i18n, classes }}
+                                Template={Template}
+                                doUseDefaultCss={true}
+                            />
+                        );
+                    case "error.ftl":
+                        return (
+                            <Error
                                 {...{ kcContext, i18n, classes }}
                                 Template={Template}
                                 doUseDefaultCss={true}
