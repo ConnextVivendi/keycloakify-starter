@@ -4,6 +4,7 @@ import type { KcContext } from "./KcContext";
 import { useI18n } from "./i18n";
 import DefaultPage from "keycloakify/login/DefaultPage";
 import Template from "./Template";
+import AssistLoginHint from "./pages/AssistLoginHint";
 import AssistLoginOtp from "./pages/AssistLoginOtp";
 import OtpForm from "./pages/OtpForm";
 import EmailConfirmation from "./pages/EmailConfirmation";
@@ -37,6 +38,14 @@ export default function KcPage(props: { kcContext: KcContext }) {
         <Suspense>
             {(() => {
                 switch (kcContext.pageId) {
+                    case "assist-login-hint.ftl":
+                        return (
+                            <AssistLoginHint
+                                {...{ kcContext, i18n, classes }}
+                                Template={Template}
+                                doUseDefaultCss={true}
+                            />
+                        );
                     case "assist-login-otp.ftl":
                         return (
                             <AssistLoginOtp

@@ -14,6 +14,12 @@ const { useI18n, ofTypeI18n } = i18nBuilder
             assistOtpInvalidFormat:
                 "Invalid OTP format. Use a 6- to 8-digit one-time code.",
             assistOtpInvalidCode: "The provided OTP is invalid.",
+            assistLoginHintTitle: "Welcome back",
+            assistLoginHintTitleNamed: "Welcome back, {0}",
+            assistLoginHintContinue: "Continue",
+            assistLoginHintPasskey: "Sign in with a passkey",
+            assistLoginHintNotYou: "Not you? Use a different account",
+            assistLoginHintNotYouNamed: "Not {0}? Use a different account",
             assistOtpTitle: "One-time password verification",
             assistOtpLabel: "One-time password",
             assistOtpInstruction:
@@ -67,6 +73,12 @@ const { useI18n, ofTypeI18n } = i18nBuilder
             assistOtpInvalidFormat:
                 "Ungültiges OTP-Format. Verwenden Sie einen 6- bis 8-stelligen Einmalcode.",
             assistOtpInvalidCode: "Das eingegebene OTP ist ungültig.",
+            assistLoginHintTitle: "Willkommen zurück",
+            assistLoginHintTitleNamed: "Willkommen zurück, {0}",
+            assistLoginHintContinue: "Weiter",
+            assistLoginHintPasskey: "Mit Passkey anmelden",
+            assistLoginHintNotYou: "Nicht Sie? Andere Anmeldung",
+            assistLoginHintNotYouNamed: "Nicht {0}? Andere Anmeldung",
             assistOtpTitle: "Einmalpasswort-Verifizierung",
             assistOtpLabel: "Einmalpasswort",
             assistOtpInstruction:

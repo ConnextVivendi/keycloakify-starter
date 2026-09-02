@@ -12,6 +12,15 @@ const kcContextExtension: KcContextExtension = {
     }
 };
 const kcContextExtensionPerPage: KcContextExtensionPerPage = {
+    "assist-login-hint.ftl": {
+        assistLoginHintName: "Max Klem",
+        assistLoginHintEmail: "max.klem@connext.de",
+        assistLoginHintInitials: "MK",
+        assistLoginHintOfferPasskey: false,
+        url: {
+            loginAction: "#"
+        }
+    },
     "assist-login-otp.ftl": {
         url: {
             loginAction: "#"

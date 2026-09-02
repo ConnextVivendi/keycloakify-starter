@@ -10,6 +10,17 @@ export type KcContextExtension = {
 };
 
 export type KcContextExtensionPerPage = {
+    "assist-login-hint.ftl": {
+        /** Caller-supplied display name, sanitised and length-capped in Java. "" when absent. */
+        assistLoginHintName: string;
+        /** The `login_hint`, echoed back. Never the result of a user lookup. */
+        assistLoginHintEmail: string;
+        assistLoginHintInitials: string;
+        assistLoginHintOfferPasskey: boolean;
+        url: {
+            loginAction: string;
+        };
+    };
     "assist-login-otp.ftl": {
         url: {
             loginAction: string;

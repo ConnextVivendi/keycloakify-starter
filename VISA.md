@@ -28,6 +28,90 @@ Optional bei Cache-Problemen:
 -   `npx keycloakify eject-page`
 -   Ergebnisdatei: `src/login/Template.tsx`
 
+# Erweiterung: assist-login-hint.ftl
+
+Bestätigungsseite der **verkürzten Anmeldung** (FLW-312). Auf geteilten Pflegegeräten merkt sich die
+VIVA Flow App die letzten zehn erfolgreichen Anmeldungen lokal und startet die Authorize-Anfrage mit
+`login_hint` neu. Diese Seite begrüßt das gemerkte Konto, bevor Keycloak das Kennwort abfragt.
+
+Gerendert wird sie vom SPI `assist-login-hint-authenticator`
+(`VivendiServices/keycloak-assist-extensions`), der als REQUIRED-Schritt vor
+`auth-username-password-form` in `Assist-Browser-Flow forms` läuft.
+
+## Ziel
+
+-   Rendering und Styling der Custom-FTL-Seite in React/Keycloakify
+-   Typsichere Abbildung der vom Authenticator gesetzten `kcContext`-Felder
+-   Storybook-Vorschau für lokale Validierung
+
+## Wichtig: alle Anzeigewerte stammen aus dem Request, nicht aus einem User-Lookup
+
+`assistLoginHintEmail` ist der zurückgespiegelte `login_hint`; `assistLoginHintName` ist das vom
+Aufrufer mitgegebene `viva_login_name` (im Java-Teil bereinigt und längenbegrenzt). Es findet
+**bewusst kein User-Lookup und kein `context.setUser()`** statt — sonst könnte eine selbst gebaute
+Authorize-URL verraten, ob eine Adresse existiert. Die Seite darf deshalb **nichts** anzeigen, was
+nicht aus dem Request stammt.
+
+Zwei Folgen für diese Seite:
+
+-   Der Name ist **nicht verifiziert** — die Adresse steht immer daneben, weil sie der ehrliche Teil
+    ist: sie ist der Benutzername, der anschließend authentifiziert wird.
+-   Weil kein User gesetzt ist, ist `auth.showUsername` false und `Template.tsx` rendert den
+    `headerNode`. Würde der Authenticator wieder `setUser()` aufrufen, ersetzt `Template.tsx` die
+    Begrüßung stillschweigend durch den eigenen `kc-username`-Block (gleiche Bedingung wie in
+    Keycloaks `base/login/template.ftl`).
+
+## Diese Seite sammelt kein Passwort
+
+Drei Buttons posten jeweils ein eigenes `assistAction` (`continue` / `passkey` / `restart`) an
+`url.loginAction`. Authentifiziert wird erst im nächsten Schritt durch Keycloaks eigenes
+`auth-username-password-form`.
+
+## Relevante Dateien
+
+-   `src/login/pages/AssistLoginHint.tsx`
+    -   React-Implementierung (Begrüßung als `headerNode`, Identitätszeile, drei Block-Buttons)
+-   `src/login/KcPage.tsx`
+    -   Routing-Erweiterung: `case "assist-login-hint.ftl"`
+-   `src/login/KcContext.ts`
+    -   Typ-Erweiterung für `assist-login-hint.ftl`
+-   `src/login/KcPageStory.tsx`
+    -   Mock-Daten in `kcContextExtensionPerPage` für Storybook
+-   `src/login/pages/AssistLoginHint.stories.tsx`
+    -   Storybook-Stories: Default, ohne Namen, mit Passkey, lange Werte
+-   `src/login/i18n.ts`
+    -   Übersetzungs-Keys
+-   `src/login/visa.css`
+    -   `.kc-hint-identity`, `.kc-hint-initials`, `.kc-hint-email`
+
+## kcContext-Felder (vom Authenticator via `form.setAttribute` gesetzt)
+
+-   `assistLoginHintName` — Anzeigename, `""` wenn nicht mitgegeben
+-   `assistLoginHintEmail` — der `login_hint`
+-   `assistLoginHintInitials` — zwei Buchstaben für den Avatar
+-   `assistLoginHintOfferPasskey` — schaltet den Passkey-Button (Default false)
+
+## i18n-Keys für assist-login-hint
+
+-   `assistLoginHintTitle`
+-   `assistLoginHintTitleNamed`
+-   `assistLoginHintContinue`
+-   `assistLoginHintPasskey`
+-   `assistLoginHintNotYou`
+-   `assistLoginHintNotYouNamed`
+
+Diese Keys existieren **doppelt**: hier für die React-Seite und als `.properties` im Provider-JAR
+(`theme-resources/messages/`) für dessen FTL-Fallback. Nichts hält beide synchron — bei Textänderungen
+beide Seiten pflegen. Die `assistOtp*`-Keys driften bereits so.
+
+## Validierung
+
+-   Storybook prüfen: `yarn storybook` → `login/assist-login-hint.ftl`
+-   Build prüfen: `yarn build`
+-   Theme-JAR bauen: `npm run build-keycloak-theme` (benötigt Maven auf dem PATH)
+
+---
+
 # Erweiterung: assist-login-otp.ftl
 
 Dieses Projekt enthält eine Keycloakify-Erweiterung für eine nicht im Keycloak-Standard enthaltene Seite: `assist-login-otp.ftl`.
