@@ -175,3 +175,41 @@ input[type="radio"] {
 .kc-email-confirmation-message {
     margin-bottom: 0.5rem;
 }
+
+/* Shortened sign-in (FLW-312): the identity line under the greeting.
+   Both values are echoed from the authorize request, never from a user lookup, so they are
+   arbitrary-length caller input — hence the wrap guards. */
+.kc-hint-identity {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.kc-hint-initials {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    background: #33576e;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.kc-hint-email {
+    min-width: 0;
+    font-size: 16px;
+    overflow-wrap: anywhere;
+}
+
+/* Shortened sign-in: vertical gap between the stacked block buttons */
+#kc-assist-login-hint-passkey,
+#kc-assist-login-hint-restart {
+    margin-top: 10px;
+}
