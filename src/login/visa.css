@@ -121,16 +121,22 @@ button.pf-c-button.pf-m-primary {
     border-color: #2a4a5e;
 }
 
+/* Higher specificity than the base theme's ".login-pf a:hover" rule,
+   which would otherwise override the text color of <a>-based buttons */
+a.pf-c-button.pf-m-primary:hover {
+    color: #fff;
+}
+
 /* Links */
 a {
     color: #33576e;
 }
 
-a:hover {
+a:hover:not(.pf-c-button) {
     color: #2a4a5e;
 }
 
-.login-pf a:hover {
+.login-pf a:hover:not(.pf-c-button) {
     color: #2a4a5e;
 }
 
@@ -148,6 +154,32 @@ a:hover {
 input[type="checkbox"],
 input[type="radio"] {
     accent-color: #33576e;
+    width: 18px;
+    height: 18px;
+    margin-right: 6px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+/* Align the label text next to a checkbox/radio vertically with the (now larger) control */
+input[type="checkbox"] + label,
+input[type="radio"] + label {
+    vertical-align: middle;
+}
+
+/* Registration: make the terms/privacy-policy link stand out from surrounding text */
+#kc-registration-terms-text a {
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+/* Small external-link arrow after the terms/privacy-policy link, no icon font required */
+#kc-registration-terms-text a::after {
+    content: "\2197";
+    display: inline-block;
+    margin-left: 4px;
+    text-decoration: none;
+    font-weight: 700;
 }
 
 /* OTP form (email code): username reminder header sizing */
