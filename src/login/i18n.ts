@@ -57,7 +57,12 @@ const { useI18n, ofTypeI18n } = i18nBuilder
             emailInstruction:
                 "Enter your email address and click submit. We will then send you an email with further instructions.",
             errorBackToAccountManagement: "Back to account management",
-            errorRedirectNotice: "You will be redirected automatically in {0} seconds."
+            errorRedirectNotice: "You will be redirected automatically in {0} seconds.",
+            pageExpiredTitle: "Page expired",
+            pageExpiredMessage:
+                "This login process has expired or was already continued in another tab. You can restart it or continue where you left off.",
+            pageExpiredRestartButton: "Restart login",
+            pageExpiredContinueButton: "Continue login"
         },
         de: {
             assistOtpServiceTimeout:
@@ -112,7 +117,12 @@ const { useI18n, ofTypeI18n } = i18nBuilder
             emailInstruction:
                 "Geben Sie Ihre E-Mail Adresse ein und klicken Sie auf Absenden. Danach werden wir Ihnen eine E-Mail mit weiteren Instruktionen zusenden.",
             errorBackToAccountManagement: "Zurück zur Kontoverwaltung",
-            errorRedirectNotice: "Sie werden in {0} Sekunden automatisch weitergeleitet."
+            errorRedirectNotice: "Sie werden in {0} Sekunden automatisch weitergeleitet.",
+            pageExpiredTitle: "Seite abgelaufen",
+            pageExpiredMessage:
+                "Dieser Anmeldevorgang ist abgelaufen oder wurde bereits in einem anderen Tab fortgesetzt. Sie können ihn neu starten oder dort weitermachen, wo Sie aufgehört haben.",
+            pageExpiredRestartButton: "Anmeldung neu starten",
+            pageExpiredContinueButton: "Anmeldung fortsetzen"
         }
     })
     .build();

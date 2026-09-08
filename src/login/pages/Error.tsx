@@ -51,10 +51,12 @@ export default function Error(props: PageProps<Extract<KcContext, { pageId: "err
             doUseDefaultCss={doUseDefaultCss}
             classes={classes}
             displayMessage={false}
-            headerNode={msg("errorTitle")}
+            headerNode={shouldRedirectImmediately ? <></> : msg("errorTitle")}
         >
             <div id="kc-error-message">
-                <p className="instruction" dangerouslySetInnerHTML={{ __html: kcSanitize(message.summary) }} />
+                {!shouldRedirectImmediately && (
+                    <p className="instruction" dangerouslySetInnerHTML={{ __html: kcSanitize(message.summary) }} />
+                )}
                 {shouldRedirectAfterDelay && (
                     <p className="kc-error-redirect-notice">{msgStr("errorRedirectNotice", `${DELAYED_REDIRECT_SECONDS}`)}</p>
                 )}

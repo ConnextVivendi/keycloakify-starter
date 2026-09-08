@@ -127,6 +127,11 @@ a.pf-c-button.pf-m-primary:hover {
     color: #fff;
 }
 
+/* Same fix as above, for <a>-based default/secondary buttons (btn-default) */
+a.pf-c-button.btn-default:hover {
+    color: #333;
+}
+
 /* Links */
 a {
     color: #33576e;

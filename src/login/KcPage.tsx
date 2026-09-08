@@ -11,6 +11,7 @@ import EmailConfirmationError from "./pages/EmailConfirmationError";
 import ViewEmail from "./pages/ViewEmail";
 import ViewEmailContinuation from "./pages/ViewEmailContinuation";
 import TrustedDeviceRegister from "./pages/TrustedDeviceRegister";
+import LoginPageExpired from "./pages/LoginPageExpired";
 const UserProfileFormFields = lazy(
     () => import("keycloakify/login/UserProfileFormFields")
 );
@@ -138,6 +139,14 @@ export default function KcPage(props: { kcContext: KcContext }) {
                     case "login-otp.ftl":
                         return (
                             <LoginOtp
+                                {...{ kcContext, i18n, classes }}
+                                Template={Template}
+                                doUseDefaultCss={true}
+                            />
+                        );
+                    case "login-page-expired.ftl":
+                        return (
+                            <LoginPageExpired
                                 {...{ kcContext, i18n, classes }}
                                 Template={Template}
                                 doUseDefaultCss={true}
